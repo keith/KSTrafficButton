@@ -1,0 +1,2 @@
+FOUNDATION_EXPORT double KSTrafficButtonVersionNumber;
+FOUNDATION_EXPORT const unsigned char KSTrafficButtonVersionString[];
