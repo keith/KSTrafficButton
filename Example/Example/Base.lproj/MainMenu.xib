@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6233" systemVersion="14A329f" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6233"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -11,7 +12,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModuleProvider="">
+        <customObject id="Voe-Tx-rLC" customClass="AppDelegate">
             <connections>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
             </connections>
@@ -667,14 +668,41 @@
             </items>
         </menu>
         <window title="Example" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <windowStyleMask key="styleMask" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="480" height="360"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1177"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <view key="contentView" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="480" height="360"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button translatesAutoresizingMaskIntoConstraints="NO" id="Wr6-26-zCe" customClass="KSCloseTrafficButton">
+                        <rect key="frame" x="20" y="328" width="12" height="12"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="Wr6-26-zCe" secondAttribute="height" multiplier="1:1" placeholder="YES" id="02w-Sg-hmH"/>
+                            <constraint firstAttribute="width" constant="12" placeholder="YES" id="NVE-YF-Mrd"/>
+                        </constraints>
+                        <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" alignment="center" imageScaling="proportionallyDown" inset="2" id="Gfd-AM-gkY">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                    </button>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="dgc-zD-VDt" customClass="KSTrafficButtonView">
+                        <rect key="frame" x="20" y="18" width="302" height="302"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="302" placeholder="YES" id="6aq-hI-Dsx"/>
+                            <constraint firstAttribute="width" secondItem="dgc-zD-VDt" secondAttribute="height" multiplier="1:1" placeholder="YES" id="WVm-oL-wSb"/>
+                        </constraints>
+                    </customView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="dgc-zD-VDt" firstAttribute="top" secondItem="Wr6-26-zCe" secondAttribute="bottom" constant="8" id="DUb-tb-7S8"/>
+                    <constraint firstItem="Wr6-26-zCe" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="20" id="LMg-Og-L8A"/>
+                    <constraint firstItem="Wr6-26-zCe" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" id="YOo-KM-bbN"/>
+                    <constraint firstItem="dgc-zD-VDt" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" id="xfi-vl-uhc"/>
+                </constraints>
             </view>
+            <point key="canvasLocation" x="373" y="449"/>
         </window>
     </objects>
 </document>

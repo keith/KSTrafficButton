@@ -1,0 +1,4 @@
+- read styleMask on the window
+- document sizes and stuff
+- force constraints?
+- document remove at build time constraints

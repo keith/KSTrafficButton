@@ -14,6 +14,16 @@
 		C2CB107E1A684F10004C2DA3 /* KSTrafficButton.h in Headers */ = {isa = PBXBuildFile; fileRef = C2CB107D1A684F10004C2DA3 /* KSTrafficButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C2CB10901A684F10004C2DA3 /* KSTrafficButton.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2CB10791A684F10004C2DA3 /* KSTrafficButton.framework */; };
 		C2CB10911A684F10004C2DA3 /* KSTrafficButton.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C2CB10791A684F10004C2DA3 /* KSTrafficButton.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C2CB109B1A6850FE004C2DA3 /* KSTrafficButtonView.h in Headers */ = {isa = PBXBuildFile; fileRef = C2CB10991A6850FE004C2DA3 /* KSTrafficButtonView.h */; };
+		C2CB109C1A6850FE004C2DA3 /* KSTrafficButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2CB109A1A6850FE004C2DA3 /* KSTrafficButtonView.m */; };
+		C2CB109F1A685A1C004C2DA3 /* KSTrafficButton.h in Headers */ = {isa = PBXBuildFile; fileRef = C2CB109D1A685A1C004C2DA3 /* KSTrafficButton.h */; };
+		C2CB10A01A685A1C004C2DA3 /* KSTrafficButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C2CB109E1A685A1C004C2DA3 /* KSTrafficButton.m */; };
+		C2CB10A51A685F21004C2DA3 /* KSCloseTrafficButton.h in Headers */ = {isa = PBXBuildFile; fileRef = C2CB10A31A685F21004C2DA3 /* KSCloseTrafficButton.h */; };
+		C2CB10A61A685F21004C2DA3 /* KSCloseTrafficButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C2CB10A41A685F21004C2DA3 /* KSCloseTrafficButton.m */; };
+		C2CB10AD1A685F8F004C2DA3 /* KSTrafficButtonConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = C2CB10AB1A685F8F004C2DA3 /* KSTrafficButtonConstants.h */; };
+		C2CB10AE1A685F8F004C2DA3 /* KSTrafficButtonConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = C2CB10AC1A685F8F004C2DA3 /* KSTrafficButtonConstants.m */; };
+		C2CB10B11A6862FB004C2DA3 /* KSTrafficImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2CB10AF1A68601A004C2DA3 /* KSTrafficImages.xcassets */; };
+		C2CB10B31A6863B9004C2DA3 /* KSTrafficImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2CB10AF1A68601A004C2DA3 /* KSTrafficImages.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +61,15 @@
 		C2CB10791A684F10004C2DA3 /* KSTrafficButton.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KSTrafficButton.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2CB107C1A684F10004C2DA3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C2CB107D1A684F10004C2DA3 /* KSTrafficButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSTrafficButton.h; sourceTree = "<group>"; };
+		C2CB10991A6850FE004C2DA3 /* KSTrafficButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KSTrafficButtonView.h; path = ../KSTrafficButtonView.h; sourceTree = "<group>"; };
+		C2CB109A1A6850FE004C2DA3 /* KSTrafficButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KSTrafficButtonView.m; path = ../KSTrafficButtonView.m; sourceTree = "<group>"; };
+		C2CB109D1A685A1C004C2DA3 /* KSTrafficButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KSTrafficButton.h; path = ../KSTrafficButton.h; sourceTree = "<group>"; };
+		C2CB109E1A685A1C004C2DA3 /* KSTrafficButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KSTrafficButton.m; path = ../KSTrafficButton.m; sourceTree = "<group>"; };
+		C2CB10A31A685F21004C2DA3 /* KSCloseTrafficButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KSCloseTrafficButton.h; path = ../KSCloseTrafficButton.h; sourceTree = "<group>"; };
+		C2CB10A41A685F21004C2DA3 /* KSCloseTrafficButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KSCloseTrafficButton.m; path = ../KSCloseTrafficButton.m; sourceTree = "<group>"; };
+		C2CB10AB1A685F8F004C2DA3 /* KSTrafficButtonConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KSTrafficButtonConstants.h; path = ../KSTrafficButtonConstants.h; sourceTree = "<group>"; };
+		C2CB10AC1A685F8F004C2DA3 /* KSTrafficButtonConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KSTrafficButtonConstants.m; path = ../KSTrafficButtonConstants.m; sourceTree = "<group>"; };
+		C2CB10AF1A68601A004C2DA3 /* KSTrafficImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = KSTrafficImages.xcassets; path = ../KSTrafficImages.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +94,15 @@
 		C2CB10481A684E7F004C2DA3 = {
 			isa = PBXGroup;
 			children = (
+				C2CB10AF1A68601A004C2DA3 /* KSTrafficImages.xcassets */,
+				C2CB109D1A685A1C004C2DA3 /* KSTrafficButton.h */,
+				C2CB109E1A685A1C004C2DA3 /* KSTrafficButton.m */,
+				C2CB10A31A685F21004C2DA3 /* KSCloseTrafficButton.h */,
+				C2CB10A41A685F21004C2DA3 /* KSCloseTrafficButton.m */,
+				C2CB10AB1A685F8F004C2DA3 /* KSTrafficButtonConstants.h */,
+				C2CB10AC1A685F8F004C2DA3 /* KSTrafficButtonConstants.m */,
+				C2CB10991A6850FE004C2DA3 /* KSTrafficButtonView.h */,
+				C2CB109A1A6850FE004C2DA3 /* KSTrafficButtonView.m */,
 				C2CB10531A684E7F004C2DA3 /* Example */,
 				C2CB107A1A684F10004C2DA3 /* KSTrafficButton */,
 				C2CB10521A684E7F004C2DA3 /* Products */,
@@ -135,7 +163,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2CB10AD1A685F8F004C2DA3 /* KSTrafficButtonConstants.h in Headers */,
+				C2CB109F1A685A1C004C2DA3 /* KSTrafficButton.h in Headers */,
 				C2CB107E1A684F10004C2DA3 /* KSTrafficButton.h in Headers */,
+				C2CB109B1A6850FE004C2DA3 /* KSTrafficButtonView.h in Headers */,
+				C2CB10A51A685F21004C2DA3 /* KSCloseTrafficButton.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,6 +252,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2CB10B31A6863B9004C2DA3 /* KSTrafficImages.xcassets in Resources */,
 				C2CB105C1A684E7F004C2DA3 /* Images.xcassets in Resources */,
 				C2CB105F1A684E7F004C2DA3 /* MainMenu.xib in Resources */,
 			);
@@ -229,6 +262,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2CB10B11A6862FB004C2DA3 /* KSTrafficImages.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,6 +282,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2CB109C1A6850FE004C2DA3 /* KSTrafficButtonView.m in Sources */,
+				C2CB10A61A685F21004C2DA3 /* KSCloseTrafficButton.m in Sources */,
+				C2CB10A01A685A1C004C2DA3 /* KSTrafficButton.m in Sources */,
+				C2CB10AE1A685F8F004C2DA3 /* KSTrafficButtonConstants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

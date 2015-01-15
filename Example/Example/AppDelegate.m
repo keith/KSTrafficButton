@@ -8,4 +8,11 @@
 
 @implementation AppDelegate
 
+- (void)applicationDidFinishLaunching:(NSNotification *)notification
+{
+    [self.window setMovableByWindowBackground:YES];
+    [NSApp activateIgnoringOtherApps:YES];
+    [self.window makeKeyAndOrderFront:self];
+}
+
 @end
