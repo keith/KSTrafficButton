@@ -2,3 +2,6 @@
 - document sizes and stuff
 - force constraints?
 - document remove at build time constraints
+- document states
+- document limitation of fullscreen because of the toolbar (that's not this lib see INAppStoreWindow)
+- why each tracking event

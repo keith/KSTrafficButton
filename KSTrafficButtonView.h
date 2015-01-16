@@ -3,9 +3,7 @@
 typedef NS_OPTIONS(NSUInteger, KSTrafficButtonType) {
     KSTrafficButtonTypeClose = 1 << 0,
     KSTrafficButtonTypeMinimize = 1 << 1,
-    KSTrafficButtonTypeFullscreen = 1 << 2,
-    KSTrafficButtonTypeMaximize = 1 << 3,
-    KSTrafficButtonTypeFullscreenMaximize = 1 << 4,
+    KSTrafficButtonTypeMaximize = 1 << 2,
 };
 
 @interface KSTrafficButtonView : NSView

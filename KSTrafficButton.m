@@ -76,9 +76,19 @@ static NSInteger const KSTrafficButtonWidth = 12;
     self.layer = layer;
     self.layer.contents = self.baseImage;
 
-    NSTrackingAreaOptions options = (NSTrackingMouseEnteredAndExited |
-                                     NSTrackingActiveAlways |
-                                     NSTrackingEnabledDuringMouseDrag
+    NSTrackingAreaOptions options = (
+
+                                     NSTrackingActiveAlways
+                                     | NSTrackingEnabledDuringMouseDrag
+                                     | NSTrackingMouseEnteredAndExited
+                                     //| NSTrackingMouseMoved
+//                                     | NSTrackingAssumeInside
+                                     | NSTrackingInVisibleRect
+//                                     | NSTrackingCursorUpdate
+
+//                                     NSTrackingMouseEnteredAndExited |
+//                                     NSTrackingActiveAlways |
+//                                     NSTrackingEnabledDuringMouseDrag
 //                                     NSTrackingMouseMoved
                                      );
     NSTrackingArea *trackingArea = [[NSTrackingArea alloc]
@@ -96,14 +106,8 @@ static NSInteger const KSTrafficButtonWidth = 12;
 
 #pragma mark - Mouse events
 
-//- (void)mouseMoved:(NSEvent *)theEvent
-//{
-//    NSLog(@"Moved button");
-//}
-
 - (void)mouseEntered:(NSEvent *)theEvent
 {
-    NSLog(@"Enter button");
     self.mouseInside = YES;
     if (self.mouseDown) {
         self.layer.contents = self.mouseDownImage;
@@ -114,9 +118,8 @@ static NSInteger const KSTrafficButtonWidth = 12;
 
 - (void)mouseExited:(NSEvent *)theEvent
 {
-    NSLog(@"Exit button");
     self.mouseInside = NO;
-    if (self.mouseDown) {
+    if (self.mouseDown || self.hasSiblingDown || self.insideGroupView) {
         self.layer.contents = self.mouseOverImage;
     } else {
         self.layer.contents = self.baseImage;
@@ -125,21 +128,22 @@ static NSInteger const KSTrafficButtonWidth = 12;
 
 - (void)mouseDown:(NSEvent *)theEvent
 {
-    NSLog(@"Down button");
     self.mouseDown = YES;
     self.layer.contents = self.mouseDownImage;
 }
 
 - (void)mouseUp:(NSEvent *)theEvent
 {
-    NSLog(@"UP button");
     self.mouseDown = NO;
     if (self.mouseInside) {
         self.layer.contents = self.mouseOverImage;
-        NSLog(@"DO IT");
         [self sendAction:self.action to:self.target];
     } else {
-        self.layer.contents = self.baseImage;
+        if (self.insideGroupView) {
+            self.layer.contents = self.mouseOverImage;
+        } else {
+            self.layer.contents = self.baseImage;
+        }
     }
 
     [self.delegate mouseUp:theEvent];

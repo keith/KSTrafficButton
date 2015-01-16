@@ -3,6 +3,8 @@
 @interface KSTrafficButton : NSButton
 
 @property (nonatomic, readonly) BOOL mouseDown;
+@property (nonatomic) BOOL hasSiblingDown;
+@property (nonatomic) BOOL insideGroupView;
 @property (nonatomic, weak) NSResponder *delegate;
 
 + (instancetype)buttonWithBaseImage:(NSImage *)baseImage

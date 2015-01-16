@@ -39,7 +39,7 @@ static CGFloat const KSButtonSpacing = 8;
 
     NSUInteger styleMask = self.window.styleMask;
     KSTrafficButtonType types = [self buttonTypesWithWindowMask:styleMask];
-    NSAssert(types > 0, @"Your window must have a style mask");
+    NSAssert(types > 0, @"Your window must have a styleMask");
     NSArray *buttons = [self buttonsForMask:types withDefaultImage:nil];
     [self setupWithButtons:buttons];
 }
@@ -47,18 +47,15 @@ static CGFloat const KSButtonSpacing = 8;
 - (void)layoutSubtreeIfNeeded
 {
     [super layoutSubtreeIfNeeded];
-
     if (self.trackingAreas.count > 0) {
         return;
     }
-
-        NSTrackingAreaOptions options = (NSTrackingMouseEnteredAndExited |
+    
+    NSTrackingAreaOptions options = (NSTrackingMouseEnteredAndExited |
                                      NSTrackingActiveAlways |
                                      NSTrackingEnabledDuringMouseDrag);
-        NSRect rect = self.bounds;
-//        rect.size = self.intrinsicContentSize;
     NSTrackingArea *trackingArea = [[NSTrackingArea alloc]
-                                    initWithRect:rect
+                                    initWithRect:self.bounds
                                     options:options
                                     owner:self
                                     userInfo:nil];
@@ -67,9 +64,6 @@ static CGFloat const KSButtonSpacing = 8;
 
 - (void)setupWithButtons:(NSArray *)buttons
 {
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints"];
-
-
     KSTrafficButton *b1 = buttons.firstObject;
     KSTrafficButton *b2 = buttons[1];
     KSTrafficButton *b3 = buttons.lastObject;
@@ -83,10 +77,6 @@ static CGFloat const KSButtonSpacing = 8;
     b3.delegate = self;
 
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[b1]-(8)-[b2]-(8)-[b3]|" options:0 metrics:nil views:@{@"b1": b1, @"b2": b2, @"b3": b3}]];
-
-
-//    [b2 addTrackingArea:trackingArea];
-//    [b3 addTrackingArea:trackingArea];
 
     return;
 
@@ -117,24 +107,6 @@ static CGFloat const KSButtonSpacing = 8;
                                                    views:@{@"button": button}]];
 
         isFirstButton = NO;
-
-
-    NSTrackingAreaOptions options = (
-
-                                     NSTrackingActiveAlways | NSTrackingEnabledDuringMouseDrag |
-                                     NSTrackingMouseEnteredAndExited | NSTrackingMouseMoved
-//                                     NSTrackingActiveAlways |
-//                                     NSTrackingEnabledDuringMouseDrag |
-//                                     NSTrackingMouseMoved
-                                     );
-        NSRect rect = self.bounds;
-        rect.size = self.intrinsicContentSize;
-    NSTrackingArea *trackingArea = [[NSTrackingArea alloc]
-                                    initWithRect:rect
-                                    options:options
-                                    owner:self
-                                    userInfo:nil];
-    [button addTrackingArea:trackingArea];
     }
 
     KSTrafficButton *lastButton = buttons[count - 1];
@@ -151,90 +123,55 @@ static CGFloat const KSButtonSpacing = 8;
 
 - (void)mouseEntered:(NSEvent *)theEvent
 {
-    NSLog(@"Enter");
     self.mouseInside = YES;
     for (KSTrafficButton *button in self.subviews) {
-        if (![button isKindOfClass:[KSTrafficButton class]]) {
-            NSLog(@"%@ is not button", button);
-        }
+        NSAssert([button isKindOfClass:[KSTrafficButton class]],
+                 @"Don't put other views in the KSTrafficButtonView");
 
-        [button mouseEntered:theEvent];
+        button.insideGroupView = YES;
+        if (!button.mouseDown) {
+            [button mouseEntered:theEvent];
+        }
     }
 }
 
 - (void)mouseExited:(NSEvent *)theEvent
 {
-    NSLog(@"Exit");
-    BOOL down = NO;
     self.mouseInside = NO;
+    BOOL mouseIsDown = NO;
     for (KSTrafficButton *button in self.subviews) {
+        button.insideGroupView = NO;
         if (button.mouseDown) {
-            down = YES;
-            return;
+            mouseIsDown = YES;
         }
     }
     
     for (KSTrafficButton *button in self.subviews) {
-        if (![button isKindOfClass:[KSTrafficButton class]]) {
-            NSLog(@"%@ 2 is not button", button);
+        NSAssert([button isKindOfClass:[KSTrafficButton class]],
+                 @"Don't put other views in the KSTrafficButtonView");
+        if (!button.mouseDown) {
+            button.hasSiblingDown = mouseIsDown;
         }
-
-//        if (down) {
-//            [button mouseDown:nil];
-//        }
 
         [button mouseExited:theEvent];
     }
 }
 
-- (void)mouseMoved:(NSEvent *)theEvent
-{
-    NSLog(@"Moved");
-}
-
-- (void)cursorUpdate:(NSEvent *)event
-{
-    NSLog(@"Cursor update");
-}
-
 - (void)mouseDown:(NSEvent *)theEvent
 {
-    NSLog(@"Down");
-//    NSPoint location = [NSEvent mouseLocation];
-    NSPoint windowLocation = [theEvent locationInWindow];
-    NSPoint viewLocation = [self convertPoint:windowLocation fromView:nil];
-
-    if (!NSPointInRect(viewLocation, self.bounds)) {
-        NSLog(@"%@ isnt in %@", NSStringFromPoint(viewLocation), NSStringFromRect(self.bounds));
+    NSView *view = [self hitTest:[theEvent locationInWindow]];
+    if ([view isKindOfClass:[KSTrafficButton class]]) {
+        [view mouseDown:theEvent];
     }
-
-//    KSTrafficButton *button = [self hitTest:[theEvent locationInWindow]]
-    KSTrafficButton *button = (KSTrafficButton *)[self hitTest:[theEvent locationInWindow]];
-
-    if ([button isKindOfClass:[self class]]) {
-        NSLog(@"Need to guard self");
-        return;
-    }
-
-    if (![button isKindOfClass:[KSTrafficButton class]]) {
-        NSLog(@"%@ isn't a button", button);
-        return;
-    }
-
-    [button mouseDown:theEvent];
-//    NSPoint globalLocation = [ NSEvent mouseLocation ];
-//    NSPoint windowLocation = [ [ myView window ] convertScreenToBase: globalLocation ];
-//    NSPoint viewLocation = [ myView convertPoint: windowLocation fromView: nil ];
-//    if( NSPointInRect( viewLocation, [ myView bounds ] ) ) {
-//    }
 }
 
 - (void)mouseUp:(NSEvent *)theEvent
 {
-    NSLog(@"Up");
     if (!self.mouseInside) {
-        NSLog(@"Up outside");
         for (KSTrafficButton *button in self.subviews) {
+            NSAssert([button isKindOfClass:[KSTrafficButton class]],
+                     @"Don't put other views in the KSTrafficButtonView");
+            button.hasSiblingDown = NO;
             [button mouseExited:nil];
         }
     }
@@ -242,28 +179,27 @@ static CGFloat const KSButtonSpacing = 8;
 
 - (NSSize)intrinsicContentSize
 {
-    return NSMakeSize(1, 12);
+    return NSMakeSize(52, 12);
 }
 
 - (NSArray *)constraintForButton:(KSTrafficButton *)firstButton
-                                   toButton:(KSTrafficButton *)secondButton
+                        toButton:(KSTrafficButton *)secondButton
 {
     NSDictionary *metrics = @{@"spacing": @(KSButtonSpacing)};
     NSDictionary *views = NSDictionaryOfVariableBindings(firstButton, secondButton);
     return [NSLayoutConstraint constraintsWithVisualFormat:@"H:[firstButton]-(spacing)-[secondButton]" options:kNilOptions metrics:metrics views:views];
-//    return [NSLayoutConstraint constraintWithItem:firstButton
-//                                        attribute:NSLayoutAttributeRight
-//                                        relatedBy:NSLayoutRelationEqual
-//                                           toItem:secondButton
-//                                        attribute:NSLayoutAttributeLeft
-//                                       multiplier:1.0f
-//                                         constant:KSButtonSpacing];
+    //    return [NSLayoutConstraint constraintWithItem:firstButton
+    //                                        attribute:NSLayoutAttributeRight
+    //                                        relatedBy:NSLayoutRelationEqual
+    //                                           toItem:secondButton
+    //                                        attribute:NSLayoutAttributeLeft
+    //                                       multiplier:1.0f
+    //                                         constant:KSButtonSpacing];
 }
 
 - (NSArray *)buttonsForMask:(KSTrafficButtonType)mask withDefaultImage:(NSImage *)image
 {
     NSMutableArray *array = [NSMutableArray new];
-    
     if ((mask & KSTrafficButtonTypeClose) == KSTrafficButtonTypeClose) {
         [array addObject:[KSCloseTrafficButton new]];
     }
@@ -272,26 +208,16 @@ static CGFloat const KSButtonSpacing = 8;
         [array addObject:[KSCloseTrafficButton new]];
     }
     
-    if ((mask & KSTrafficButtonTypeFullscreen) == KSTrafficButtonTypeFullscreen) {
-        [array addObject:[KSCloseTrafficButton new]];
-    }
-    
     if ((mask & KSTrafficButtonTypeMaximize) == KSTrafficButtonTypeMaximize) {
         [array addObject:[KSCloseTrafficButton new]];
     }
-    
-    if ((mask & KSTrafficButtonTypeFullscreenMaximize) == KSTrafficButtonTypeFullscreenMaximize) {
-        [array addObject:[KSCloseTrafficButton new]];
-    }
-    
-    NSAssert(array.count <= 3, @"Only 3 traffic buttons are allowed!");
+
     return [array copy];
 }
 
 - (KSTrafficButtonType)buttonTypesWithWindowMask:(NSUInteger)windowMask
 {
     KSTrafficButtonType buttonTypes;
-    
     if ((windowMask & NSClosableWindowMask) == NSClosableWindowMask) {
         buttonTypes |= KSTrafficButtonTypeClose;
     }
@@ -300,16 +226,10 @@ static CGFloat const KSButtonSpacing = 8;
         buttonTypes |= KSTrafficButtonTypeMinimize;
     }
     
-    if ((windowMask & NSFullScreenWindowMask) == NSFullScreenWindowMask) {
-        if ((windowMask & NSResizableWindowMask) == NSResizableWindowMask) {
-            buttonTypes |= KSTrafficButtonTypeFullscreenMaximize;
-        } else {
-            buttonTypes |= KSTrafficButtonTypeFullscreen;
-        }
-    } else if ((windowMask & NSResizableWindowMask) == NSResizableWindowMask) {
+    if ((windowMask & NSResizableWindowMask) == NSResizableWindowMask) {
         buttonTypes |= KSTrafficButtonTypeMaximize;
     }
-
+    
     return buttonTypes;
 }
 
