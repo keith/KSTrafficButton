@@ -1,4 +1,5 @@
 #import "KSTrafficButton.h"
+#import "KSTrafficButtonConstants.h"
 
 @interface KSTrafficButton ()
 
@@ -10,8 +11,6 @@
 @property (nonatomic) BOOL mouseInside;
 
 @end
-
-static NSInteger const KSTrafficButtonWidth = 12;
 
 @implementation KSTrafficButton
 
@@ -76,21 +75,10 @@ static NSInteger const KSTrafficButtonWidth = 12;
     self.layer = layer;
     self.layer.contents = self.baseImage;
 
-    NSTrackingAreaOptions options = (
-
-                                     NSTrackingActiveAlways
-                                     | NSTrackingEnabledDuringMouseDrag
-                                     | NSTrackingMouseEnteredAndExited
-                                     //| NSTrackingMouseMoved
-//                                     | NSTrackingAssumeInside
-                                     | NSTrackingInVisibleRect
-//                                     | NSTrackingCursorUpdate
-
-//                                     NSTrackingMouseEnteredAndExited |
-//                                     NSTrackingActiveAlways |
-//                                     NSTrackingEnabledDuringMouseDrag
-//                                     NSTrackingMouseMoved
-                                     );
+    NSTrackingAreaOptions options = (NSTrackingActiveAlways |
+                                     NSTrackingEnabledDuringMouseDrag |
+                                     NSTrackingMouseEnteredAndExited |
+                                     NSTrackingInVisibleRect);
     NSTrackingArea *trackingArea = [[NSTrackingArea alloc]
                                     initWithRect:self.bounds
                                     options:options
@@ -101,7 +89,7 @@ static NSInteger const KSTrafficButtonWidth = 12;
 
 - (NSSize)intrinsicContentSize
 {
-    return NSMakeSize(KSTrafficButtonWidth, KSTrafficButtonWidth);
+    return NSMakeSize(KSTrafficButtonDimension, KSTrafficButtonDimension);
 }
 
 #pragma mark - Mouse events

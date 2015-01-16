@@ -24,4 +24,11 @@
                      mouseOverImage:mouseOverImage];
 }
 
+- (void)viewDidMoveToWindow
+{
+    [super viewDidMoveToWindow];
+    self.target = self.window;
+    self.action = @selector(close);
+}
+
 @end

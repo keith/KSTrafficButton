@@ -12,4 +12,6 @@ typedef NS_OPTIONS(NSUInteger, KSTrafficButtonType) {
 - (instancetype)initWithButtons:(KSTrafficButtonType)buttonsTypes
                    defaultImage:(NSImage *)image;
 
+- (instancetype)initWithStyleMask:(NSUInteger)styleMask;
+
 @end

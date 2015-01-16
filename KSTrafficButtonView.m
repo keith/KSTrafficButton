@@ -1,5 +1,6 @@
 #import "KSCloseTrafficButton.h"
 #import "KSTrafficButton.h"
+#import "KSTrafficButtonConstants.h"
 #import "KSTrafficButtonView.h"
 
 @interface KSTrafficButtonView ()
@@ -10,7 +11,7 @@
 
 @implementation KSTrafficButtonView
 
-static CGFloat const KSButtonSpacing = 8;
+static CGFloat const KSTrafficButtonSpacing = 8;
 
 - (instancetype)initWithButtons:(KSTrafficButtonType)buttonTypes
 {
@@ -30,16 +31,26 @@ static CGFloat const KSButtonSpacing = 8;
     return self;
 }
 
+- (instancetype)initWithStyleMask:(NSUInteger)styleMask
+{
+    self = [super init];
+    if (!self) return nil;
+
+    [self setupWithStyleMask:styleMask];
+
+    return self;
+}
+
 - (void)awakeFromNib
 {
     [super awakeFromNib];
+    [self setupWithStyleMask:self.window.styleMask];
+}
 
-    self.wantsLayer = YES;
-    self.layer.backgroundColor = [[NSColor yellowColor] CGColor];
-
-    NSUInteger styleMask = self.window.styleMask;
+- (void)setupWithStyleMask:(NSUInteger)styleMask
+{
     KSTrafficButtonType types = [self buttonTypesWithWindowMask:styleMask];
-    NSAssert(types > 0, @"Your window must have a styleMask");
+    NSAssert(types > 0, @"Your window must have a valid styleMask");
     NSArray *buttons = [self buttonsForMask:types withDefaultImage:nil];
     [self setupWithButtons:buttons];
 }
@@ -64,61 +75,33 @@ static CGFloat const KSButtonSpacing = 8;
 
 - (void)setupWithButtons:(NSArray *)buttons
 {
-    KSTrafficButton *b1 = buttons.firstObject;
-    KSTrafficButton *b2 = buttons[1];
-    KSTrafficButton *b3 = buttons.lastObject;
-
-    [self addSubview:b1];
-    [self addSubview:b2];
-    [self addSubview:b3];
-
-    b1.delegate = self;
-    b2.delegate = self;
-    b3.delegate = self;
-
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[b1]-(8)-[b2]-(8)-[b3]|" options:0 metrics:nil views:@{@"b1": b1, @"b2": b2, @"b3": b3}]];
-
-    return;
-
-    BOOL isFirstButton = YES;
-    NSUInteger count = buttons.count;
-    for (NSUInteger i = 0; i < count; i++) {
-        KSTrafficButton *button = buttons[i];
+    NSUInteger index = 0;
+    NSMutableDictionary *views = [NSMutableDictionary new];
+    NSString *format = @"H:|";
+    NSString *spacingFormat = [NSString stringWithFormat:@"-(%.0f)-",
+                               KSTrafficButtonSpacing];
+    for (KSTrafficButton *button in buttons) {
+        button.delegate = self;
         [self addSubview:button];
-        if (isFirstButton) {
-            [self addConstraint:
-             [NSLayoutConstraint constraintWithItem:button
-                                          attribute:NSLayoutAttributeLeft
-                                          relatedBy:NSLayoutRelationEqual
-                                             toItem:self
-                                          attribute:NSLayoutAttributeLeft
-                                         multiplier:1.0f
-                                           constant:0]];
-        } else {
-            KSTrafficButton *previousButton = buttons[i - 1];
-            [self addConstraints:[self constraintForButton:button
-                                                 toButton:previousButton]];
-        }
-
-        [self addConstraints:
-         [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[button]|"
-                                                 options:kNilOptions
-                                                 metrics:nil
-                                                   views:@{@"button": button}]];
-
-        isFirstButton = NO;
+        NSString *key = [NSString stringWithFormat:@"view%lu", (unsigned long)index];
+        format = [format stringByAppendingFormat:@"[%@]%@", key, spacingFormat];
+        views[key] = button;
+        index++;
     }
 
-    KSTrafficButton *lastButton = buttons[count - 1];
-    [self addConstraint:
-     [NSLayoutConstraint constraintWithItem:lastButton
-                                  attribute:NSLayoutAttributeRight
-                                  relatedBy:NSLayoutRelationEqual
-                                     toItem:self
-                                  attribute:NSLayoutAttributeRight
-                                 multiplier:1.0f
-                                   constant:0]];
+    NSUInteger stringLength = format.length;
+    NSUInteger spacingLength = spacingFormat.length;
+    NSRange range = NSMakeRange(stringLength - spacingLength, spacingLength);
+    format = [format stringByReplacingOccurrencesOfString:spacingFormat
+                                               withString:@"|"
+                                                  options:NSBackwardsSearch
+                                                    range:range];
 
+    [self addConstraints:
+     [NSLayoutConstraint constraintsWithVisualFormat:format
+                                             options:kNilOptions
+                                             metrics:nil
+                                               views:views]];
 }
 
 - (void)mouseEntered:(NSEvent *)theEvent
@@ -179,22 +162,10 @@ static CGFloat const KSButtonSpacing = 8;
 
 - (NSSize)intrinsicContentSize
 {
-    return NSMakeSize(52, 12);
-}
-
-- (NSArray *)constraintForButton:(KSTrafficButton *)firstButton
-                        toButton:(KSTrafficButton *)secondButton
-{
-    NSDictionary *metrics = @{@"spacing": @(KSButtonSpacing)};
-    NSDictionary *views = NSDictionaryOfVariableBindings(firstButton, secondButton);
-    return [NSLayoutConstraint constraintsWithVisualFormat:@"H:[firstButton]-(spacing)-[secondButton]" options:kNilOptions metrics:metrics views:views];
-    //    return [NSLayoutConstraint constraintWithItem:firstButton
-    //                                        attribute:NSLayoutAttributeRight
-    //                                        relatedBy:NSLayoutRelationEqual
-    //                                           toItem:secondButton
-    //                                        attribute:NSLayoutAttributeLeft
-    //                                       multiplier:1.0f
-    //                                         constant:KSButtonSpacing];
+    NSUInteger numberOfSubviews = self.subviews.count;
+    CGFloat spacing = KSTrafficButtonSpacing * (numberOfSubviews - 1);
+    CGFloat buttonWidths = KSTrafficButtonDimension * numberOfSubviews;
+    return NSMakeSize(buttonWidths + spacing, KSTrafficButtonDimension);
 }
 
 - (NSArray *)buttonsForMask:(KSTrafficButtonType)mask withDefaultImage:(NSImage *)image
