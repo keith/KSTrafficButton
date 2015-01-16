@@ -11,8 +11,11 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)notification
 {
     [self.window setMovableByWindowBackground:YES];
-    [NSApp activateIgnoringOtherApps:YES];
-    [self.window makeKeyAndOrderFront:self];
+}
+
+- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender
+{
+    return YES;
 }
 
 @end
