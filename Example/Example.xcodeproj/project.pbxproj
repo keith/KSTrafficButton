@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C2B2FCC51A8ED42600503A80 /* KSMinimizeTrafficButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B2FCC31A8ED3B100503A80 /* KSMinimizeTrafficButton.m */; };
 		C2CB10581A684E7F004C2DA3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C2CB10571A684E7F004C2DA3 /* AppDelegate.m */; };
 		C2CB105A1A684E7F004C2DA3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C2CB10591A684E7F004C2DA3 /* main.m */; };
 		C2CB105C1A684E7F004C2DA3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2CB105B1A684E7F004C2DA3 /* Images.xcassets */; };
@@ -51,6 +52,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C2B2FCC21A8ED3B000503A80 /* KSMinimizeTrafficButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KSMinimizeTrafficButton.h; path = ../KSMinimizeTrafficButton.h; sourceTree = "<group>"; };
+		C2B2FCC31A8ED3B100503A80 /* KSMinimizeTrafficButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KSMinimizeTrafficButton.m; path = ../KSMinimizeTrafficButton.m; sourceTree = "<group>"; };
 		C2CB10511A684E7F004C2DA3 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2CB10551A684E7F004C2DA3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C2CB10561A684E7F004C2DA3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -99,6 +102,8 @@
 				C2CB109E1A685A1C004C2DA3 /* KSTrafficButton.m */,
 				C2CB10A31A685F21004C2DA3 /* KSCloseTrafficButton.h */,
 				C2CB10A41A685F21004C2DA3 /* KSCloseTrafficButton.m */,
+				C2B2FCC21A8ED3B000503A80 /* KSMinimizeTrafficButton.h */,
+				C2B2FCC31A8ED3B100503A80 /* KSMinimizeTrafficButton.m */,
 				C2CB10AB1A685F8F004C2DA3 /* KSTrafficButtonConstants.h */,
 				C2CB10AC1A685F8F004C2DA3 /* KSTrafficButtonConstants.m */,
 				C2CB10991A6850FE004C2DA3 /* KSTrafficButtonView.h */,
@@ -282,6 +287,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2B2FCC51A8ED42600503A80 /* KSMinimizeTrafficButton.m in Sources */,
 				C2CB109C1A6850FE004C2DA3 /* KSTrafficButtonView.m in Sources */,
 				C2CB10A61A685F21004C2DA3 /* KSCloseTrafficButton.m in Sources */,
 				C2CB10A01A685A1C004C2DA3 /* KSTrafficButton.m in Sources */,
@@ -481,6 +487,7 @@
 				C2CB10931A684F10004C2DA3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

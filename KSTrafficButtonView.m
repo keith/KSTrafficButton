@@ -1,4 +1,5 @@
 #import "KSCloseTrafficButton.h"
+#import "KSMinimizeTrafficButton.h"
 #import "KSTrafficButton.h"
 #import "KSTrafficButtonConstants.h"
 #import "KSTrafficButtonView.h"
@@ -176,7 +177,7 @@ static CGFloat const KSTrafficButtonSpacing = 8;
     }
     
     if ((mask & KSTrafficButtonTypeMinimize) == KSTrafficButtonTypeMinimize) {
-        [array addObject:[KSCloseTrafficButton new]];
+        [array addObject:[KSMinimizeTrafficButton new]];
     }
     
     if ((mask & KSTrafficButtonTypeMaximize) == KSTrafficButtonTypeMaximize) {
